@@ -57,7 +57,7 @@ namespace Hx.Extensions.FluentMapper.Testing
         public void ReturnTheProperlyTypedQueryableTest()
         {
             var input = CreatePersonInput();
-            var result = input.Mutate().Into<Programmer>().ToArray();
+            var result = input.MutateItems().Into<Programmer>().ToArray();
             Assert.IsNotNull(result);
             Assert.AreEqual<int>(input.Length, result.Length);
             foreach(var item in result)
@@ -70,7 +70,7 @@ namespace Hx.Extensions.FluentMapper.Testing
         public void CastUpHierarchyIfAvailableTest()
         {
             var input = CreateProgrammerInput();
-            var result = input.Mutate().Into<Person>().ToArray();
+            var result = input.MutateItems().Into<Person>().ToArray();
             Assert.IsNotNull(result);
             Assert.AreEqual<int>(input.Length, result.Length);
             foreach (var item in result)
@@ -87,7 +87,7 @@ namespace Hx.Extensions.FluentMapper.Testing
         public void MutateAllMatchingTypePropertiesTest()
         {
             var input = CreatePersonInput();
-            var result = input.Mutate().Into<Programmer>().ToArray();
+            var result = input.MutateItems().Into<Programmer>().ToArray();
             foreach (var item in result)
             {
                 Assert.IsInstanceOfType(item, typeof(Programmer));
@@ -97,14 +97,14 @@ namespace Hx.Extensions.FluentMapper.Testing
                 Assert.IsTrue(string.IsNullOrEmpty(item.FavoriteSkill));
             }
 
-            var output = input.Mutate().Into<Programmer>().ToArray();
+            var output = input.MutateItems().Into<Programmer>().ToArray();
         }
 
         [TestMethod]
         public void MutateSourceIntoUnrelatedThingWithDefaultMappingTest()
         {
             var input = CreatePersonInput();
-            var result = input.Mutate().Into<UnrelatedThing>().ToArray();
+            var result = input.MutateItems().Into<UnrelatedThing>().ToArray();
             foreach (var item in result)
             {
                 Assert.IsInstanceOfType(item, typeof(UnrelatedThing));

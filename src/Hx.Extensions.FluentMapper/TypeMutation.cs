@@ -9,7 +9,6 @@ namespace Hx.Extensions.FluentMapper
     public class TypeMutation<TSource> where TSource : class
     {
         #region Constants and Variables
-        private readonly IMutationService mutationService;
         private readonly IEnumerable<TSource> source;
         #endregion Constants and Variables
 
@@ -17,7 +16,6 @@ namespace Hx.Extensions.FluentMapper
         
         internal TypeMutation(IEnumerable<TSource> source)
         {
-            this.mutationService = new AutoMapperMutatationService();
             this.source = source;
         }
         #endregion Constructors
@@ -34,7 +32,7 @@ namespace Hx.Extensions.FluentMapper
             }
             else
             {
-                return this.source.Select(x => this.mutationService.Mutate<TSource, TResult>(x));
+                return this.source.Select(x => TypeMutator.MutationService.Mutate<TSource, TResult>(x));
             }
         }
         #endregion Methods
